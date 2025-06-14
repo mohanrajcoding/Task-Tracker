@@ -30,21 +30,11 @@ public class Task {
 	@Enumerated(EnumType.STRING)
 	private TaskStatus status;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createdAt;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updatedAt;
+	private String createdAt;
 	
-	@PrePersist
-	protected void onCreate() {
-		this.createdAt=new Date();
-	}
+	private String updatedAt;
 	
-	@PostPersist
-	protected void onUpdate() {
-		this.updatedAt=new Date();
-	}
 	public Integer getId() {
 		return id;
 	}
@@ -63,23 +53,17 @@ public class Task {
 	public void setStatus(TaskStatus status) {
 		this.status = status;
 	}
-	public Date getCreatedAt() {
+	public String getCreatedAt() {
 		return createdAt;
 	}
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
-	public Date getUpdatedAt() {
+	public String getUpdatedAt() {
 		return updatedAt;
 	}
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(String updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-//	public enum Status {
-//        TODO,
-//        IN_PROGRESS,
-//        DONE
-//    }
 	
 }
