@@ -1,7 +1,10 @@
 package com.task.controler.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,12 @@ public class TaskService {
 		if(existingTask.isPresent()) {
 			throw new DuplicateTaskDescriptionException("The Task is already Available");
 		}
+		Date now = new Date();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		df.setTimeZone(TimeZone.getTimeZone("GMT+5:30"));
+		String createdDate = df.format(now);
+		task.setCreatedAt(createdDate); 
+		
 		return tr.save(task);
 	}
 
@@ -37,14 +46,24 @@ public class TaskService {
 				(()->new TaskNotAvailableException("Task is not Available for :",task.getId()));
 		existingTask.setDescription(task.getDescription());
 		existingTask.setStatus(task.getStatus());
+		Date now = new Date();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		df.setTimeZone(TimeZone.getTimeZone("GMT+5:30"));
+		String updateDate = df.format(now);
+		existingTask.setUpdatedAt(updateDate);
 		return tr.save(existingTask);
 	}
 
 	public Task statusDone(Integer id) {
 		// TODO Auto-generated method stub
-		Task markStatusDone = tr.findById(id).orElseThrow(()-> new TaskNotAvailableException("Task is not Available for :", id));
-		markStatusDone.setStatus(TaskStatus.DONE);
-		return tr.save(markStatusDone);
+		Task task = tr.findById(id).orElseThrow(()-> new TaskNotAvailableException("Task is not Available for :", id));
+		task.setStatus(TaskStatus.DONE);
+		Date now = new Date();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		df.setTimeZone(TimeZone.getTimeZone("GMT+5:30"));
+		String updateDate = df.format(now);
+		task.setUpdatedAt(updateDate);
+		return tr.save(task);
 	}
 
 	public List<Task> listTasks() {
@@ -71,6 +90,11 @@ public class TaskService {
 		// TODO Auto-generated method stub
 		Task task = tr.findById(id).orElseThrow(()->new TaskNotAvailableException("Task is not Available for :", id));
 		task.setStatus(TaskStatus.IN_PROGRESS);
+		Date now = new Date();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		df.setTimeZone(TimeZone.getTimeZone("GMT+5:30"));
+		String updateDate = df.format(now);
+		task.setUpdatedAt(updateDate);
 		return tr.save(task);
 	}
 
