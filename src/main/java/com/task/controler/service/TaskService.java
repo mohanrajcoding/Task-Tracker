@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.TimeZone;
 
+import javax.management.ListenerNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,6 +98,15 @@ public class TaskService {
 		String updateDate = df.format(now);
 		task.setUpdatedAt(updateDate);
 		return tr.save(task);
+	}
+
+	public List <Task> listNotdoneTask() {
+		// TODO Auto-generated method stub
+		List<Task> task = tr.findByStatusNot(TaskStatus.DONE);
+		if(task.isEmpty()) {
+			throw new TaskNotAvailableException("You have done All Test, Take Rest...!");
+		}
+		return task;
 	}
 
 	

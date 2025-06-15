@@ -81,4 +81,10 @@ public class TaskControler {
 		}
 		return ResponseEntity.ok(task);
 	}
+	
+	@GetMapping("/list/notdone")
+	public ResponseEntity<List<Task>> listNotdoneTask(){
+		List<Task> task = ts.listNotdoneTask();
+		return ResponseEntity.ok(task);
+	}
 }
