@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(TaskNotAvailableException.class)
 	public ResponseEntity<String> handleAvailable(TaskNotAvailableException ex){
 		//String error = ex.getMessage()+id;
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+		return ResponseEntity.status(HttpStatus.OK).body(ex.getMessage());
 		
 	}
 }

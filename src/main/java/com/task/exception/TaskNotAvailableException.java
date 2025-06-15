@@ -13,4 +13,9 @@ public class TaskNotAvailableException extends RuntimeException {
 		// TODO Auto-generated constructor stub
 		super(message+""+status);
 	}
+
+	public TaskNotAvailableException(String message) {
+		// TODO Auto-generated constructor stub
+		super(message);
+	}
 }
